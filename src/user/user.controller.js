@@ -2,6 +2,8 @@ const passport = require("./passport");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../../config/auth");
 
+const UserModel = require("./user.model");
+
 module.exports = {
   signUp: (req, res, next) =>
     passport.authenticate("signup", (err, { password, ...user }) => {
@@ -47,7 +49,6 @@ module.exports = {
           return next(err);
         }
 
-
         const body = { _id: user._id, email: user.email };
         const token = jwt.sign({ user: body }, authConfig.authSecret);
 
@@ -56,5 +57,10 @@ module.exports = {
           message: "Login successful"
         });
       });
-    })(req, res, next)
+    })(req, res, next),
+  findById(userId) {
+    return UserModel.findById(userId, {
+      password: 0
+    }).lean();
+  }
 };

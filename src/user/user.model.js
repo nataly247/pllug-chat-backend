@@ -32,6 +32,6 @@ module.exports = {
     const user = new UserModel(data);
     return user.save();
   },
-  findById: id => UserModel.findById(id),
+  findById: (id, projection) => UserModel.findById(id, projection),
   findByUsername: username => UserModel.findOne({ username })
 };
