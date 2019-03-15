@@ -58,7 +58,25 @@ module.exports = {
         });
       });
     })(req, res, next),
-  findById(userId) {
+
+  update: (req, res, next) => {
+    const { avatar } = req.body;
+    return UserModel.model
+      .findOneAndUpdate({ _id: req.user._id }, { $set: { avatar } })
+      .then(() => res.status(200).json({ message: "Update success" }))
+      .catch(next);
+  },
+
+  getUser: (req, res, next) => {
+    return module.exports
+      .findById(req.user._id)
+      .then(user =>
+        res.status(200).json({ message: "User obtained", data: { user } })
+      )
+      .catch(next);
+  },
+
+  findById: userId => {
     return UserModel.findById(userId, {
       password: 0
     }).lean();

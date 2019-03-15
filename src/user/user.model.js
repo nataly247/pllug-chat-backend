@@ -27,7 +27,7 @@ UserSchema.methods.isValidPassword = function(password) {
 const UserModel = mongoose.model("User", UserSchema);
 
 module.exports = {
-  UserModel,
+  model: UserModel,
   create: data => {
     const user = new UserModel(data);
     return user.save();

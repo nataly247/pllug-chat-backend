@@ -3,7 +3,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const JWTstrategy = require("passport-jwt").Strategy;
 const ExtractJWT = require("passport-jwt").ExtractJwt;
 const bcrypt = require("bcrypt");
-const userModel = require("./user.model");
+const UserModel = require("./user.model");
 const authConfig = require("../../config/auth");
 
 const hashPassword = password =>
@@ -26,7 +26,7 @@ passport.use(
       passReqToCallback: true
     },
     (req, username, password, done) =>
-      userModel
+      UserModel
         .create({
           username,
           password: hashPassword(password)
@@ -49,7 +49,7 @@ passport.use(
     },
     async (username, password, done) => {
       try {
-        const user = await userModel.findByUsername(username);
+        const user = await UserModel.findByUsername(username);
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
@@ -80,7 +80,8 @@ passport.use(
     (jwtPayload, done) =>
       UserModel.findById(jwtPayload.user._id)
         .lean()
-        .then(user => done(null, user).catch(err => done(err)))
+        .then(user => done(null, user))
+        .catch(err => done(err))
   )
 );
 

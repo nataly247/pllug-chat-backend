@@ -7,7 +7,7 @@ module.exports = (req, res, next) =>
     }
 
     if (!user) {
-      return next({ code: "Wrong authorization token passed" });
+      return next({ status: 403, message: "Wrong authorization token passed" });
     }
 
     return req.logIn(user, err => {
