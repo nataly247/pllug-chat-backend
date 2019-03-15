@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // mongoDB URI format: https://docs.mongodb.com/manual/reference/connection-string/
 mongoose.connect(
-  "mongodb://52.9.142.100:27018/pllug-backend?authSource=admin",
+  "mongodb+srv://pllug-user:Install_new!@pllug-5s6vb.mongodb.net/test?retryWrites=true",
   { useNewUrlParser: true }
 );
 
