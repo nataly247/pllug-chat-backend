@@ -8,7 +8,7 @@ const messageSchema = Schema(
     type: { type: String, default: "system" }
   },
   {
-    timestamps: true,
+    timestamps: { createdAt: true, updatedAt: false },
     versionKey: false
   }
 );
