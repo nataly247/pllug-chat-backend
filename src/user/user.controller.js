@@ -33,10 +33,11 @@ module.exports = {
     })(req, res, next),
 
   login: (req, res, next) =>
-    passport.authenticate("login", (err, { password, ...user }, info) => {
+    passport.authenticate("login", (err, data, info) => {
       if (err) {
         return next(err);
       }
+      const { password, ...user } = data;
       if (!user) {
         return next({
           status: 403,

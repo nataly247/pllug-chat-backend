@@ -26,11 +26,10 @@ passport.use(
       passReqToCallback: true
     },
     (req, username, password, done) =>
-      UserModel
-        .create({
-          username,
-          password: hashPassword(password)
-        })
+      UserModel.create({
+        username,
+        password: hashPassword(password)
+      })
         .then(user =>
           done(null, user.toObject(), {
             message: "New user successfully created"
@@ -56,7 +55,7 @@ passport.use(
 
         const validate = await user.isValidPassword(password);
         if (!validate) {
-          return done(null, false, { message: "Wrong Password" });
+          return done({ message: "Wrong Password" });
         }
         return done(null, user.toObject(), {
           message: "Logged in Successfully"
