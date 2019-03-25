@@ -4,6 +4,12 @@ const passport = require("passport");
 const mainRouter = require("./src/router");
 const app = express();
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.use(bodyParser.json());
 
 app.use(passport.initialize());
