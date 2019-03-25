@@ -38,7 +38,7 @@ module.exports = {
         return next(err);
       }
       const { password, ...user } = data;
-      if (!user) {
+      if (!password) {
         return next({
           status: 403,
           message: info.message ? info.message : "User not found"
