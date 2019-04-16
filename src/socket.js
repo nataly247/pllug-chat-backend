@@ -14,9 +14,7 @@ module.exports = server => {
       return next("Authentication error");
     }
     const { user } = jwt.decode(token);
-    if (!user._id) {
-      return next("Authentication error");
-    }
+
     return userController.findById(user._id).then(user => {
       if (!user) {
         return next("User not found");

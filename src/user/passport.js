@@ -22,10 +22,9 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "username",
-      passwordField: "password",
-      passReqToCallback: true
+      passwordField: "password"
     },
-    (req, username, password, done) =>
+    (username, password, done) =>
       UserModel.create({
         username,
         password: hashPassword(password)
